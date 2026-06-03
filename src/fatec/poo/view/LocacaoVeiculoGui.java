@@ -40,9 +40,15 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtTaxaLocacao = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtKmRodado = new javax.swing.JTextField();
+        txtValorKmRodado = new javax.swing.JTextField();
         lblValorLocacao = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        btnConsultar = new javax.swing.JButton();
+        btnAlugar = new javax.swing.JButton();
+        btnLiberar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtKmRodados = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Locação Veículo");
@@ -51,19 +57,18 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
         jLabel2.setText("Nome do Cliente");
 
+        txtNome.setEnabled(false);
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo do Cliente"));
 
         btgrpTipoCliente.add(rdbComum);
         rdbComum.setSelected(true);
         rdbComum.setText("Comum");
-        rdbComum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbComumActionPerformed(evt);
-            }
-        });
+        rdbComum.setEnabled(false);
 
         btgrpTipoCliente.add(rdbPremium);
         rdbPremium.setText("Premium");
+        rdbPremium.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,19 +92,38 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
         jLabel3.setText("Placa do Carro");
 
+        txtPlacaCarro.setEnabled(false);
+
         jLabel4.setText("Taxa de Locação(%)");
+
+        txtTaxaLocacao.setEnabled(false);
 
         jLabel5.setText("Valor por Km rodado");
 
-        txtKmRodado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKmRodadoActionPerformed(evt);
-            }
-        });
+        txtValorKmRodado.setEnabled(false);
 
         lblValorLocacao.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel6.setText("Valor da Locação");
+
+        btnConsultar.setText("Consultar");
+
+        btnAlugar.setText("Alugar");
+        btnAlugar.setEnabled(false);
+
+        btnLiberar.setText("Liberar");
+        btnLiberar.setEnabled(false);
+
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Km Rodados");
+
+        txtKmRodados.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,22 +139,36 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblValorLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtPlacaCarro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                             .addComponent(txtTaxaLocacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(txtKmRodado, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblValorLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                            .addComponent(txtValorKmRodado, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtKmRodados)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnLiberar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,24 +194,30 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtKmRodado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                    .addComponent(txtValorKmRodado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtKmRodados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(lblValorLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlugar)
+                    .addComponent(btnLiberar)
+                    .addComponent(btnSair))
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rdbComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbComumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdbComumActionPerformed
-
-    private void txtKmRodadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKmRodadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtKmRodadoActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,20 +256,26 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgrpTipoCliente;
+    private javax.swing.JButton btnAlugar;
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnLiberar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblValorLocacao;
     private javax.swing.JRadioButton rdbComum;
     private javax.swing.JRadioButton rdbPremium;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtKmRodado;
+    private javax.swing.JTextField txtKmRodados;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPlacaCarro;
     private javax.swing.JTextField txtTaxaLocacao;
+    private javax.swing.JTextField txtValorKmRodado;
     // End of variables declaration//GEN-END:variables
 }
