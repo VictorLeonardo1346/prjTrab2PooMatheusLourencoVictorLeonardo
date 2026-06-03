@@ -67,14 +67,20 @@ public class LocacaoVeiculo {
         return valorLocacao;
     }
     
-    public double calcValorPagar(double valorCobrado){
-        kmRodados *= valorCobrado;
+    public double calcValorPagar(double valorKm){
+        double kmCobrado;
         
-        if(tipoCliente == "Premium"){
-            valorCobrado -= taxaLocacao * 0.10;
+        if(tipoCliente.equals("Premium")){
+            kmCobrado = kmRodados * 0.9; // aplicando o desconto de 10% 
         }else{
-            valorCobrado -= taxaLocacao;
+            kmCobrado = kmRodados; // Valor sem desconto
         }
-        return valorCobrado;
+        
+        valorLocacao = kmCobrado * valorKm; // Calcula o valor da locação
+        
+        valorLocacao += valorLocacao * (taxaLocacao / 100); // Aplica a taxa de 
+                                                 // locação sobre o valor final
+        
+        return valorLocacao;
     }
 }
