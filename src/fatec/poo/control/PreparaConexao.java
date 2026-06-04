@@ -1,4 +1,4 @@
-package fatec.poo.dao;
+package fatec.poo.control;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

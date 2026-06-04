@@ -5,8 +5,8 @@
  */
 package fatec.poo.view;
 
-import fatec.poo.dao.DaoLocacaoVeiculo;
-import fatec.poo.dao.PreparaConexao;
+import fatec.poo.control.DaoLocacaoVeiculo;
+import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.LocacaoVeiculo;
 import java.text.DecimalFormat;
 
@@ -250,7 +250,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         prepCon = new PreparaConexao("", "");
         prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\Victorleonardo\\Documents\\NetBeansProjects\\prjTrab2PooMatheusLourencoVictorLeonardo\\src\\fatec\\poo\\basedados\\DB_POO.accdb");
+        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\teusi\\OneDrive\\Documentos\\NetBeansProjects\\prjTrab2PooMatheusLourencoVictorLeonardo\\src\\fatec\\poo\\basedados\\DB_POO.accdb");
         daoLocacaoVeiculo = new DaoLocacaoVeiculo(prepCon.abrirConexao());
     }//GEN-LAST:event_formWindowOpened
 
@@ -261,73 +261,64 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         locacaoVeiculo = null;
 
-    locacaoVeiculo = daoLocacaoVeiculo.consultar(
-            Integer.parseInt(txtCodigo.getText())
-    );
+        locacaoVeiculo = daoLocacaoVeiculo.consultar(Integer.parseInt(txtCodigo.getText())
+        );
 
-    if (locacaoVeiculo == null) {
+        if (locacaoVeiculo == null) {
 
-        txtCodigo.setEnabled(false);
+            txtCodigo.setEnabled(false);
 
-        txtNomeCliente.setEnabled(true);
-        rdbComum.setEnabled(true);
-        rdbPremium.setEnabled(true);
-        txtPlacaCarro.setEnabled(true);
-        txtTaxaLocacao.setEnabled(true);
-        txtKmRodados.setEnabled(true);
-        txtValorKmRodado.setEnabled(true);
+            txtNomeCliente.setEnabled(true);
+            rdbComum.setEnabled(true);
+            rdbPremium.setEnabled(true);
+            txtPlacaCarro.setEnabled(true);
+            txtTaxaLocacao.setEnabled(true);
+            txtKmRodados.setEnabled(false);
+            txtValorKmRodado.setEnabled(false);
 
-        txtNomeCliente.requestFocus();
+            txtNomeCliente.requestFocus();
 
-        btnConsultar.setEnabled(false);
-        btnAlugar.setEnabled(true);
-        btnLiberar.setEnabled(false);
+            btnConsultar.setEnabled(false);
+            btnAlugar.setEnabled(true);
+            btnLiberar.setEnabled(false);
 
-    } else {
-
-        txtNomeCliente.setText(locacaoVeiculo.getNomeCliente());
-
-        if (locacaoVeiculo.getTipoCliente() == "Comum") {
-            rdbComum.setSelected(true);
-            rdbPremium.setSelected(false);
         } else {
-            rdbPremium.setSelected(true);
-            rdbComum.setSelected(false);
+
+            txtNomeCliente.setText(locacaoVeiculo.getNomeCliente());
+
+            if (locacaoVeiculo.getTipoCliente() == "Comum") {
+                rdbComum.setSelected(true);
+                rdbPremium.setSelected(false);
+            } else {
+                rdbPremium.setSelected(true);
+                rdbComum.setSelected(false);
+            }
+
+            txtPlacaCarro.setText(locacaoVeiculo.getPlacaCarro());
+
+            txtTaxaLocacao.setText(String.valueOf(locacaoVeiculo.getTaxaLocacao()));
+
+            txtCodigo.setEnabled(false);
+            txtNomeCliente.setEnabled(false);
+            rdbComum.setEnabled(false);
+            rdbPremium.setEnabled(false);
+            txtPlacaCarro.setEnabled(false);
+            txtTaxaLocacao.setEnabled(false);
+
+            txtKmRodados.setEnabled(true);
+            txtValorKmRodado.setEnabled(true);
+
+            txtNomeCliente.requestFocus();
+
+            btnConsultar.setEnabled(false);
+            btnAlugar.setEnabled(false);
+            btnLiberar.setEnabled(true);
         }
-
-        txtPlacaCarro.setText(locacaoVeiculo.getPlacaCarro());
-
-        txtTaxaLocacao.setText(
-                String.valueOf(locacaoVeiculo.getTaxaLocacao())
-        );
-
-        txtKmRodados.setText(
-                String.valueOf(locacaoVeiculo.getKmRodados())
-        );
-
-        lblValorLocacao.setText(
-                String.valueOf(locacaoVeiculo.getValorLocacao())
-        );
-
-        txtCodigo.setEnabled(false);
-
-        txtNomeCliente.setEnabled(true);
-        txtPlacaCarro.setEnabled(true);
-        txtTaxaLocacao.setEnabled(true);
-        txtKmRodados.setEnabled(false);
-        txtValorKmRodado.setEnabled(false);
-
-        txtNomeCliente.requestFocus();
-
-        btnConsultar.setEnabled(false);
-        btnAlugar.setEnabled(true);
-        btnLiberar.setEnabled(true);
-    }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
         locacaoVeiculo = new LocacaoVeiculo(
-            Integer.parseInt(txtCodigo.getText()), txtNomeCliente.getText()
+                Integer.parseInt(txtCodigo.getText()), txtNomeCliente.getText()
         );
 
         if (rdbComum.isSelected()) {
@@ -359,44 +350,52 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
         txtTaxaLocacao.setEnabled(false);
 
         txtCodigo.requestFocus();
-        
+
         btnAlugar.setEnabled(false);
         btnLiberar.setEnabled(true);
+        btnConsultar.setEnabled(true);
     }//GEN-LAST:event_btnAlugarActionPerformed
 
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
         DecimalFormat df = new DecimalFormat("#,###.##");
-        LocacaoVeiculo ObjLoc = new LocacaoVeiculo(Integer.parseInt
-        (txtCodigo.getText()), txtNomeCliente.getText());
-        
-        locacaoVeiculo.setNomeCliente(txtNomeCliente.getText());
-        locacaoVeiculo.setTipoCliente(rdbComum.getText());
-        locacaoVeiculo.setTipoCliente(rdbPremium.getText());
-        locacaoVeiculo.setPlacaCarro(txtPlacaCarro.getText());
-        locacaoVeiculo.setTaxaLocacao(Double.parseDouble
-        (txtTaxaLocacao.getText()));
-        locacaoVeiculo.setKmRodados(Integer.parseInt(txtKmRodados.getText()));
-        // lblValorLocacao.setText(String.valueOf(locacaoVeiculo.calcValorPaga());
+
+        locacaoVeiculo.setKmRodados(
+                Integer.parseInt(txtKmRodados.getText())
+        );
+
+        double valorLocacao = locacaoVeiculo.calcValorPagar(
+                Double.parseDouble(txtValorKmRodado.getText())
+        );
+
+        lblValorLocacao.setText(df.format(valorLocacao));
+
         daoLocacaoVeiculo.liberar(locacaoVeiculo);
-        
-        /* txtCodigo.setText(null);
+
+        // Limpa os campos
+        txtCodigo.setText(null);
         txtNomeCliente.setText(null);
         txtPlacaCarro.setText(null);
-        txtTaxaLocacao.setText(null); 
-        txtValorKmRodado.setText(null);
+        txtTaxaLocacao.setText(null);
         txtKmRodados.setText(null);
-        lblValorLocacao.setText(null); */
-        txtCodigo.setEnabled(false);
+        txtValorKmRodado.setText(null);
+        lblValorLocacao.setText(null);
+
+        // Volta ao estado inicial
+        txtCodigo.setEnabled(true);
+
         txtNomeCliente.setEnabled(false);
         rdbComum.setEnabled(false);
         rdbPremium.setEnabled(false);
         txtPlacaCarro.setEnabled(false);
         txtTaxaLocacao.setEnabled(false);
-        txtValorKmRodado.setEnabled(true);
-        txtKmRodados.setEnabled(true);
-        
+        txtKmRodados.setEnabled(false);
+        txtValorKmRodado.setEnabled(false);
+
+        btnConsultar.setEnabled(true);
+        btnAlugar.setEnabled(false);
+        btnLiberar.setEnabled(false);
+
         txtCodigo.requestFocus();
-        
     }//GEN-LAST:event_btnLiberarActionPerformed
 
     /**

@@ -1,4 +1,4 @@
-package fatec.poo.dao;
+package fatec.poo.control;
 
 import fatec.poo.model.LocacaoVeiculo;
 import java.sql.Connection;
