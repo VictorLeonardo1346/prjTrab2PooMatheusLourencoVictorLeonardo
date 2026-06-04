@@ -71,15 +71,15 @@ public class LocacaoVeiculo {
         double kmCobrado;
         
         if(tipoCliente == "Premium"){
-            kmCobrado = kmRodados * 0.9; // aplicando o desconto de 10% 
+            kmCobrado = kmRodados * 0.9; 
         }else{
-            kmCobrado = kmRodados; // Valor sem desconto
+            kmCobrado = kmRodados; 
         }
         
-        valorLocacao = kmCobrado * valorKm; // Calcula o valor da locação
+        valorLocacao = kmCobrado * valorKm; 
         
-        valorLocacao += valorLocacao * (taxaLocacao / 100); // Aplica a taxa de 
-                                                 // locação sobre o valor final
+        valorLocacao += valorLocacao * (taxaLocacao / 100);
+                                                 
         
         return valorLocacao;
     }

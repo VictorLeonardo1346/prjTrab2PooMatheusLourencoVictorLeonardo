@@ -27,6 +27,7 @@ public class DaoLocacaoVeiculo {
                 objLoc = new LocacaoVeiculo(rs.getInt("Codigo"), rs.getString("NomeCliente"));
                 objLoc.setTipoCliente(rs.getString("TipoCliente"));
                 objLoc.setTaxaLocacao(rs.getDouble("TaxaLocacao"));
+                objLoc.setPlacaCarro(rs.getString("PlacaCarro"));
                 objLoc.setKmRodados(rs.getInt("KmRodados"));
             }
         } catch (SQLException ex) {
@@ -58,10 +59,13 @@ public class DaoLocacaoVeiculo {
     public void liberar (LocacaoVeiculo objLoc){
         PreparedStatement ps;
         try{
-            ps = conn.prepareStatement("DELETE FROM tblLocacao where Codigo = ?");
+            ps = conn.prepareStatement("UPDATE tblLocacao SET KmRodados = ?, "
+                    + " ValorLocacao = ? WHERE Codigo = ? "  );
             
-            ps.setInt(1, objLoc.getCodigo());
-            
+            ps.setInt(1, objLoc.getKmRodados());
+            ps.setDouble(2, objLoc.getValorLocacao());
+            ps.setInt(3, objLoc.getCodigo());
+           
             ps.execute();
         } catch (SQLException ex){
             System.out.println(ex.toString());
