@@ -34,4 +34,37 @@ public class DaoLocacaoVeiculo {
         }
         return objLoc;
     }
+    
+    public void alugar (LocacaoVeiculo objLoc){
+        PreparedStatement ps;
+        try{
+            ps = conn.prepareStatement("INSERT INTO tblLocacao(Codigo, NomeCliente, " +
+                                       "TipoCliente, PlacaCarro, TaxaLocacao, KmRodados, ValorLocacao)" +
+                                        "VALUES(?,?,?,?,?,?,?)");
+            ps.setInt(1, objLoc.getCodigo());
+            ps.setString(2, objLoc.getNomeCliente());
+            ps.setString(3, objLoc.getTipoCliente());
+            ps.setString(4, objLoc.getPlacaCarro());
+            ps.setDouble(5, objLoc.getTaxaLocacao());
+            ps.setInt(6, objLoc.getKmRodados());
+            ps.setDouble(7, objLoc.getValorLocacao());
+            
+            ps.execute();
+        } catch (SQLException ex){
+            System.out.println(ex.toString());
+        }
+    }
+    
+    public void liberar (LocacaoVeiculo objLoc){
+        PreparedStatement ps;
+        try{
+            ps = conn.prepareStatement("DELETE FROM tblLocacao where Codigo = ?");
+            
+            ps.setInt(1, objLoc.getCodigo());
+            
+            ps.execute();
+        } catch (SQLException ex){
+            System.out.println(ex.toString());
+        }
+    }
 }
