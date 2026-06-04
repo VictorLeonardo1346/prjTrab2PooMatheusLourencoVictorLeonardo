@@ -5,6 +5,10 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.dao.DaoLocacaoVeiculo;
+import fatec.poo.dao.PreparaConexao;
+import fatec.poo.model.LocacaoVeiculo;
+
 /**
  *
  * @author teusi
@@ -31,7 +35,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        txtNome = new javax.swing.JTextField();
+        txtNomeCliente = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         rdbComum = new javax.swing.JRadioButton();
         rdbPremium = new javax.swing.JRadioButton();
@@ -52,12 +56,20 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Locação Veículo");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Código da Locação");
 
         jLabel2.setText("Nome do Cliente");
 
-        txtNome.setEnabled(false);
+        txtNomeCliente.setEnabled(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo do Cliente"));
 
@@ -87,7 +99,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbComum)
                     .addComponent(rdbPremium))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel3.setText("Placa do Carro");
@@ -107,12 +119,27 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
         jLabel6.setText("Valor da Locação");
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnAlugar.setText("Alugar");
         btnAlugar.setEnabled(false);
+        btnAlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlugarActionPerformed(evt);
+            }
+        });
 
         btnLiberar.setText("Liberar");
         btnLiberar.setEnabled(false);
+        btnLiberar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiberarActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +166,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +207,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,6 +246,80 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        prepCon = new PreparaConexao("","");
+        prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\teusi\\OneDrive\\Documentos\\NetBeansProjects\\prjTrab2PooMatheusLourencoVictorLeonardo\\src\\fatec\\poo\\basedados\\DB_POO.accdb");
+        daoLocacaoVeiculo = new DaoLocacaoVeiculo(prepCon.abrirConexao());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        prepCon.fecharConexao();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        locacaoVeiculo = null;
+        locacaoVeiculo = daoLocacaoVeiculo.consultar(Integer.parseInt(txtCodigo.getText()));
+        LocacaoVeiculo objLoc = new LocacaoVeiculo(Integer.parseInt(txtCodigo.getText()), txtNomeCliente.getText());
+        
+        if(locacaoVeiculo == null){
+            txtCodigo.setEnabled(false);
+            txtNomeCliente.setEnabled(true);
+            rdbComum.setEnabled(true);
+            rdbPremium.setEnabled(true);
+            txtPlacaCarro.setEnabled(true);
+            txtTaxaLocacao.setEnabled(true);
+            txtValorKmRodado.setEnabled(true);
+            txtKmRodados.setEnabled(true);
+        }else{
+            txtNomeCliente.setText(locacaoVeiculo.getNomeCliente());
+            rdbComum.setEnabled(true);
+            rdbPremium.setEnabled(true);
+            txtPlacaCarro.setText(String.valueOf(locacaoVeiculo.getPlacaCarro()));
+            txtTaxaLocacao.setText(String.valueOf(locacaoVeiculo.getTaxaLocacao()));
+            txtKmRodados.setText(String.valueOf(locacaoVeiculo.getKmRodados()));
+            
+            lblValorLocacao.setText(String.valueOf(locacaoVeiculo.getValorLocacao()));
+        }
+        
+        btnConsultar.setEnabled(false);
+        btnAlugar.setEnabled(true);
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
+        locacaoVeiculo = new LocacaoVeiculo(Integer.parseInt(txtCodigo.getText()), txtNomeCliente.getText());
+        locacaoVeiculo.setTipoCliente(txtNomeCliente.getText());
+        locacaoVeiculo.setPlacaCarro(txtPlacaCarro.getText());
+        locacaoVeiculo.setTaxaLocacao(Double.parseDouble(txtTaxaLocacao.getText()));
+        locacaoVeiculo.setKmRodados(Integer.parseInt(txtKmRodados.getText()));
+        
+        daoLocacaoVeiculo.alugar(locacaoVeiculo);
+        
+        txtCodigo.setText(null);
+        txtNomeCliente.setText(null);
+        txtPlacaCarro.setText(null);
+        txtTaxaLocacao.setText(null);
+        txtValorKmRodado.setText(null);
+        txtKmRodados.setText(null);
+        
+        btnAlugar.setEnabled(false);
+        
+        txtCodigo.setEnabled(true);
+        txtNomeCliente.setEnabled(false);
+        txtPlacaCarro.setEnabled(false);
+        txtTaxaLocacao.setEnabled(false);
+        txtValorKmRodado.setEnabled(true);
+        txtKmRodados.setEnabled(true);
+        
+        btnLiberar.setEnabled(true);
+        btnConsultar.setEnabled(true);
+    }//GEN-LAST:event_btnAlugarActionPerformed
+
+    private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
+        
+    }//GEN-LAST:event_btnLiberarActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -273,9 +374,13 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbPremium;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtKmRodados;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtPlacaCarro;
     private javax.swing.JTextField txtTaxaLocacao;
     private javax.swing.JTextField txtValorKmRodado;
     // End of variables declaration//GEN-END:variables
+
+    private LocacaoVeiculo locacaoVeiculo;
+    private DaoLocacaoVeiculo daoLocacaoVeiculo;
+    private PreparaConexao prepCon;
 }

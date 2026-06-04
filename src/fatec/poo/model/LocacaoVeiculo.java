@@ -70,7 +70,7 @@ public class LocacaoVeiculo {
     public double calcValorPagar(double valorKm){
         double kmCobrado;
         
-        if(tipoCliente.equals("Premium")){
+        if(tipoCliente == "Premium"){
             kmCobrado = kmRodados * 0.9; // aplicando o desconto de 10% 
         }else{
             kmCobrado = kmRodados; // Valor sem desconto
