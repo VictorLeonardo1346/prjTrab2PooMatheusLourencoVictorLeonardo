@@ -261,6 +261,10 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         locacaoVeiculo = null;
 
+        lblValorLocacao.setText(null);
+        txtValorKmRodado.setText(null);
+        txtKmRodados.setText(null);
+
         locacaoVeiculo = daoLocacaoVeiculo.consultar(Integer.parseInt(txtCodigo.getText())
         );
 
@@ -329,8 +333,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
         locacaoVeiculo.setPlacaCarro(txtPlacaCarro.getText());
 
-        locacaoVeiculo.setTaxaLocacao(
-                Double.parseDouble(txtTaxaLocacao.getText())
+        locacaoVeiculo.setTaxaLocacao(Double.parseDouble(txtTaxaLocacao.getText())
         );
 
         daoLocacaoVeiculo.alugar(locacaoVeiculo);
@@ -351,6 +354,9 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
         txtCodigo.requestFocus();
 
+        txtValorKmRodado.setEnabled(true);
+        txtKmRodados.setEnabled(true);
+
         btnAlugar.setEnabled(false);
         btnLiberar.setEnabled(true);
         btnConsultar.setEnabled(true);
@@ -359,8 +365,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
         DecimalFormat df = new DecimalFormat("#,###.##");
 
-        locacaoVeiculo.setKmRodados(
-                Integer.parseInt(txtKmRodados.getText())
+        locacaoVeiculo.setKmRodados(Integer.parseInt(txtKmRodados.getText())
         );
 
         double valorLocacao = locacaoVeiculo.calcValorPagar(
@@ -371,16 +376,13 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
         daoLocacaoVeiculo.liberar(locacaoVeiculo);
 
-        // Limpa os campos
         txtCodigo.setText(null);
         txtNomeCliente.setText(null);
         txtPlacaCarro.setText(null);
         txtTaxaLocacao.setText(null);
         txtKmRodados.setText(null);
         txtValorKmRodado.setText(null);
-        lblValorLocacao.setText(null);
 
-        // Volta ao estado inicial
         txtCodigo.setEnabled(true);
 
         txtNomeCliente.setEnabled(false);
