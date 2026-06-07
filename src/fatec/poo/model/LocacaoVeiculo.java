@@ -69,8 +69,8 @@ public class LocacaoVeiculo {
     
     public double calcValorPagar(double valorKm){
         double kmCobrado;
-        
-        if(tipoCliente == "Premium"){
+    
+        if(tipoCliente.equals("Premium")){
             kmCobrado = kmRodados * 0.9; 
         }else{
             kmCobrado = kmRodados; 
@@ -79,8 +79,7 @@ public class LocacaoVeiculo {
         valorLocacao = kmCobrado * valorKm; 
         
         valorLocacao += valorLocacao * (taxaLocacao / 100);
-                                                 
-        
+
         return valorLocacao;
     }
 }

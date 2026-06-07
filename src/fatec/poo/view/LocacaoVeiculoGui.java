@@ -250,7 +250,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         prepCon = new PreparaConexao("", "");
         prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\teusi\\OneDrive\\Documentos\\NetBeansProjects\\prjTrab2PooMatheusLourencoVictorLeonardo\\src\\fatec\\poo\\basedados\\DB_POO.accdb");
+        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\Victorleonardo\\Documents\\NetBeansProjects\\prjTrab2PooMatheusLourencoVictorLeonardo\\src\\fatec\\poo\\basedados\\DB_POO.accdb");
         daoLocacaoVeiculo = new DaoLocacaoVeiculo(prepCon.abrirConexao());
     }//GEN-LAST:event_formWindowOpened
 
@@ -290,7 +290,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
 
             txtNomeCliente.setText(locacaoVeiculo.getNomeCliente());
 
-            if (locacaoVeiculo.getTipoCliente() == "Comum") {
+            if (locacaoVeiculo.getTipoCliente().equals("Comum")) {
                 rdbComum.setSelected(true);
                 rdbPremium.setSelected(false);
             } else {
@@ -312,7 +312,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
             txtKmRodados.setEnabled(true);
             txtValorKmRodado.setEnabled(true);
 
-            txtNomeCliente.requestFocus();
+            txtKmRodados.requestFocus();
 
             btnConsultar.setEnabled(false);
             btnAlugar.setEnabled(false);
@@ -343,7 +343,7 @@ public class LocacaoVeiculoGui extends javax.swing.JFrame {
         txtPlacaCarro.setText(null);
         txtTaxaLocacao.setText(null);
         txtValorKmRodado.setText(null);
-        txtKmRodados.setText(null);
+        txtKmRodados.setText(null); 
 
         txtCodigo.setEnabled(true);
         txtNomeCliente.setEnabled(false);
